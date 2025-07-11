@@ -225,17 +225,44 @@ Manual backup:
 
 ## Security Considerations
 
+### Network Security
 1. Firewall rules are configured to allow only:
-   - SSH (22) Please make sure to disable SSH port 22 in Azure portal.
+   - SSH (22) - Consider restricting to specific IP ranges in production
    - HTTPS (443)
 
 2. SSH access:
-   - SSH Key-based authentication only and is stored at `~/.ssh/id_rsa_n8n` on your local machine.
+   - SSH Key-based authentication only (stored at `~/.ssh/id_rsa_n8n`)
    - Password authentication disabled
+   - Consider disabling SSH port 22 in Azure portal after initial setup
 
+### Application Security
 3. n8n security:
-   - HTTPS enforced
-   - Regular security updates
+   - HTTPS enforced with automatic SSL certificates
+   - Encryption key automatically generated for workflow data
+   - Regular security updates via latest Docker image
+   - Container resource limits enforced to prevent DoS
+
+### Database Security
+4. PostgreSQL security:
+   - **Updated to 14.16** to address critical security vulnerabilities including:
+     - CVE-2025-1094 (CVSS 8.1) - SQL injection vulnerability
+     - CVE-2024-10979 - Environment variable manipulation
+     - CVE-2024-7348 - TOCTOU race condition
+   - Isolated in Docker network
+   - Resource limits applied
+
+### Infrastructure Security
+5. Azure infrastructure:
+   - Network Security Groups with minimal required access
+   - VM uses SSH key authentication only
+   - Dynamic IP with DNS name for SSL certificate generation
+   - Updated ARM template API versions (2024-03-01)
+
+### Backup Security
+6. Backup considerations:
+   - Automated backup with configurable retention
+   - Optional Azure Storage integration with proper authentication
+   - Encrypted data volumes preserved
 
 ## Troubleshooting
 

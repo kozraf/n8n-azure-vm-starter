@@ -12,7 +12,7 @@ sudo usermod -aG docker $USER
 # Notify about group changes
 echo "Added user to docker group. You may need to log out and back in for this to take effect."
 
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.38.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
 # Install Caddy for HTTPS
@@ -70,6 +70,7 @@ export N8N_HOST="${domain_name}"
 echo "N8N_HOST=${domain_name}" > .env
 echo "N8N_PROTOCOL=https" >> .env
 echo "N8N_PORT=5678" >> .env
+echo "N8N_ENCRYPTION_KEY=$(openssl rand -hex 32)" >> .env
 
 # Notify user to log out and back in
 echo "Setup complete! Please log out and log back in for docker permissions to take effect."
