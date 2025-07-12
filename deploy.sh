@@ -8,26 +8,26 @@ ADMIN_USERNAME="n8nadmin"
 DNS_PREFIX="n8n-$(date +%s | cut -c6-10)"
 
 # Check if resource group exists and has resources
-if az group show --name $RESOURCE_GROUP &>/dev/null; then
-    echo "Resource group $RESOURCE_GROUP exists. Checking for existing resources..."
-    RESOURCE_COUNT=$(az resource list --resource-group $RESOURCE_GROUP --query "length(@)" -o tsv)
-    if [ "$RESOURCE_COUNT" -gt 0 ]; then
-        echo "Found $RESOURCE_COUNT existing resources. Would you like to delete them and redeploy? (y/n)"
-        read -r response
-        if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-            echo "Deleting resource group $RESOURCE_GROUP..."
-            az group delete --name $RESOURCE_GROUP --yes --no-wait
-            echo "Waiting for deletion to complete..."
-            az group wait --deleted --name $RESOURCE_GROUP
-        else
-            echo "Deployment cancelled. Please manually clean up resources or use a different resource group."
-            exit 1
-        fi
-    fi
-fi
+#if az group show --name $RESOURCE_GROUP &>/dev/null; then
+#    echo "Resource group $RESOURCE_GROUP exists. Checking for existing resources..."
+#    RESOURCE_COUNT=$(az resource list --resource-group $RESOURCE_GROUP --query "length(@)" -o tsv)
+#    if [ "$RESOURCE_COUNT" -gt 0 ]; then
+#        echo "Found $RESOURCE_COUNT existing resources. Would you like to delete them and redeploy? (y/n)"
+#        read -r response
+#        if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+#            echo "Deleting resource group $RESOURCE_GROUP..."
+#            az group delete --name $RESOURCE_GROUP --yes --no-wait
+#            echo "Waiting for deletion to complete..."
+#            az group wait --deleted --name $RESOURCE_GROUP
+#        else
+#            echo "Deployment cancelled. Please manually clean up resources or use a different resource group."
+#            exit 1
+#        fi
+#    fi
+#fi
 
 # Create resource group
-az group create --name $RESOURCE_GROUP --location $LOCATION
+#az group create --name $RESOURCE_GROUP --location $LOCATION
 
 # Generate SSH key if it doesn't exist
 if [ ! -f ~/.ssh/id_rsa_n8n ]; then
