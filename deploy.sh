@@ -57,6 +57,9 @@ if [ -n "$VM_IP" ]; then
     echo "VM deployed successfully!"
     echo "SSH connection: ssh -i ~/.ssh/id_rsa_n8n $ADMIN_USERNAME@$VM_IP"
     echo "DNS name: $DNS_PREFIX.$LOCATION.cloudapp.azure.com"
+    echo "Now run:"
+    echo "scp -i ~/.ssh/id_rsa_n8n setup.sh docker-compose.yml backup.sh $ADMIN_USERNAME@$VM_IP:~/"
+    echo "ssh -i ~/.ssh/id_rsa_n8n $ADMIN_USERNAME@$VM_IP"
 else
     echo "Deployment completed but VM IP not found. Check Azure portal for details."
     echo "DNS name: $DNS_PREFIX.$LOCATION.cloudapp.azure.com"
