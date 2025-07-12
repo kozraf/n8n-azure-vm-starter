@@ -42,7 +42,8 @@ az deployment group create \
     vmName=$VM_NAME \
     adminUsername=$ADMIN_USERNAME \
     adminPasswordOrKey="$(cat ~/.ssh/id_rsa_n8n.pub)" \
-    dnsLabelPrefix=$DNS_PREFIX
+    dnsLabelPrefix=$DNS_PREFIX \
+    location=$LOCATION
 
 # Wait for deployment to complete
 echo "Waiting for deployment to complete..."
